@@ -47,7 +47,7 @@ jobs:
               read -a arr <<< "$EXECUTABLES"
               for i in "${arr[@]}"
                 do
-                  ls -r | grep -x "$i"
+                  ls -r | grep -x "$i";
                   if [ $? -eq 1 ]
                   then
                     echo -e "Missing $i"
