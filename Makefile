@@ -28,6 +28,8 @@ fclean: clean
 
 re:		fclean all
 
+tests_run:
+
 git:
 	echo -e "*.a\n*.o\n*#*#*\n#*\n.#*\n*~\n" > .gitignore
 	echo -e "vgcore*\n*.log\na.out\n.vscode*" >> .gitignore
