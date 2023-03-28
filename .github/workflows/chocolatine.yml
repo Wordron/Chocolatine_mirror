@@ -20,14 +20,16 @@ jobs:
         run: check.sh $PWD $PWD
       - name: check_coding_style_report
         run: |
-            IFS='\n';
-            read -a arr < coding-style-reports.log;
-            for i in "${arr[@]}"
-              do
-                IFS=':'
-                read -a line <<< $i
-                echo "::error file=${arr[0]},line=${arr[1]}::${arr[2]}"
-              done
+              IFS='
+              ';
+              read -a arr < coding-style-checker/coding-style-reports.log;
+              for i in "${arr[@]}"
+                  do
+                      IFS=':'
+                      read -a line <<< "$i"
+                      echo "::error file=${line[0]},line=${line[1]},title=${line[2]}::${line[3]}"
+                  done
+        
     ## fail job if coding style errors
 
   check_program_compilation:
@@ -52,7 +54,6 @@ jobs:
                   ls -r | grep -x "$i";
                   if [ $? -eq 1 ]
                   then
-                    echo -e "Missing $i";
                     exit 1
                   fi
                 done
