@@ -22,7 +22,7 @@ jobs:
         run: |
               IFS='
               ';
-              read -a arr < coding-style-checker/coding-style-reports.log;
+              read -a arr < coding-style-reports.log;
               for i in "${arr[@]}"
                   do
                       IFS=':'
