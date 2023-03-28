@@ -37,23 +37,23 @@ jobs:
         run: make clean
 
       - name: create_sh
-      ##  run: echo -e "IFS=','; read -a arr <<< \"\$1\";\nfor i in \"\${arr[@]}\"\ndo\nls -r | grep -x \"\$i\"\nif [ \$? -eq 1 ]\nthen\necho -e "Missing \$i"\nexit 1\nfi\ndone" > test_exec.sh;
-      ##     chmod 777 test_exec.sh
-      ##- name: run_sh
-      ##  run: test_exec.sh ${{ 'EXECUTABLES' }}
-      ##- name: re_clean_repo
-      ##  run: rm test_exec.sh
-        run: IFS=',';
-              read -a arr <<< "$EXECUTABLES";
-              for i in "${arr[@]}"
-                do
-                  ls -r | grep -x "$i";
-                  if [ $? -eq 1 ]
-                  then
-                    echo -e "Missing $i";
-                    exit 1
-                  fi
-                done
+        run: echo -e "IFS=','; read -a arr <<< \"\$1\";\nfor i in \"\${arr[@]}\"\ndo\nls -r | grep -x \"\$i\"\nif [ \$? -eq 1 ]\nthen\necho -e "Missing \$i"\nexit 1\nfi\ndone" > test_exec.sh;
+           chmod 777 test_exec.sh
+      - name: run_sh
+        run: test_exec.sh ${{ 'EXECUTABLES' }}
+      - name: re_clean_repo
+        run: rm test_exec.sh
+        ##run: IFS=',';
+        ##      read -a arr <<< "$EXECUTABLES";
+        ##      for i in "${arr[@]}"
+        ##        do
+        ##          ls -r | grep -x "$i";
+        ##          if [ $? -eq 1 ]
+        ##          then
+        ##            echo -e "Missing $i";
+        ##            exit 1
+        ##          fi
+        ##        done
 
   run_tests:
     needs: check_program_compilation
