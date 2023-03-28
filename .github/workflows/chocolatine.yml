@@ -2,10 +2,10 @@ name: chocolatine
 on:
   push:
     branches-ignore:
-      - ga-ignore-**/
+      - ga-ignore-**
   pull_request:
     branches-ignore:
-      - ga-ignore-**/
+      - ga-ignore-**
 env:
   MIRROR_URL: 'git@github.com:EpitechPromo2027/B-DOP-200-NAN-2-1-chocolatine-maxime1.leroy.git'
   EXECUTABLES: 'test'
@@ -18,8 +18,16 @@ jobs:
         uses: actions/checkout@v3.3.0
       - name: run_coding_style_checker
         run: check.sh $PWD $PWD
-      ##- name: check_coding_style_report
-
+      - name: check_coding_style_report
+        run: |
+            IFS='\n';
+            read -a arr < coding-style-reports.log;
+            for i in "${arr[@]}"
+              do
+                IFS=':'
+                read -a line <<< $i
+                echo "::error file=${arr[0]},line=${arr[1]}::${arr[2]}"
+              done
     ## fail job if coding style errors
 
   check_program_compilation:
