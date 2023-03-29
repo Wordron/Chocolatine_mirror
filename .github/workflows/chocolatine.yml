@@ -8,7 +8,7 @@ on:
       - ga-ignore-**
 env:
   MIRROR_URL: 'git@github.com:EpitechPromo2027/B-DOP-200-NAN-2-1-chocolatine-maxime1.leroy.git'
-  EXECUTABLES: 'test,ls'
+  EXECUTABLES: 'test'
 jobs:
   check_coding_style:
     runs-on: ubuntu-latest
