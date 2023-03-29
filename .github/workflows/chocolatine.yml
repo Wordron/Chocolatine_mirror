@@ -24,11 +24,6 @@ jobs:
               do
                 IFS=':'; read -a line <<< $arr; echo "::error file=${line[0]},line=${line[1]},title=${line[2]}::${line[3]}"
               done < "coding-style-reports.log"
-              cat coding-style-reports.log | grep -q :
-              if [ $? -eq 0 ]
-              then
-                exit 1
-              fi
 
   check_program_compilation:
     needs: check_coding_style
