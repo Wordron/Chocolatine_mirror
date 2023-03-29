@@ -8,7 +8,7 @@ on:
       - ga-ignore-**
 env:
   MIRROR_URL: 'git@github.com:EpitechPromo2027/B-DOP-200-NAN-2-1-chocolatine-maxime1.leroy.git'
-  EXECUTABLES: 'test'
+  EXECUTABLES: 'test,lib/libmy.a'
 jobs:
   check_coding_style:
     runs-on: ubuntu-latest
@@ -20,16 +20,17 @@ jobs:
         run: check.sh $PWD $PWD
       - name: check_coding_style_report
         run: |
+              checker=`cat coding-style-reports.log`
               IFS='
               ';
-              read -a arr < coding-style-reports.log;
+              read -a arr <<< "$checker";
               for i in "${arr[@]}"
                   do
                       IFS=':'
                       read -a line <<< "$i"
                       echo "::error file=${line[0]},line=${line[1]},title=${line[2]}::${line[3]}"
                   done
-        
+
     ## fail job if coding style errors
 
   check_program_compilation:
@@ -54,6 +55,7 @@ jobs:
                   ls -r | grep -x "$i";
                   if [ $? -eq 1 ]
                   then
+                    echo "::error title=${$i}::Missing";
                     exit 1
                   fi
                 done
