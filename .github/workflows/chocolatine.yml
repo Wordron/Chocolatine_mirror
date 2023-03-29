@@ -55,7 +55,7 @@ jobs:
                   ls -r | grep -x "$i";
                   if [ $? -eq 1 ]
                   then
-                    echo "::error title=${$i}::Missing";
+                    echo "::error title=${i}::Missing";
                     exit 1
                   fi
                 done
