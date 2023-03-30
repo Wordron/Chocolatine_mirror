@@ -39,3 +39,4 @@ style:
 	$(PATH_TO_CHECKER)/coding-style.sh . .
 	echo; grep -v MAJOR:C-O1 coding-style-reports.log || true; echo
 	rm -f coding-style-reports.log
+
