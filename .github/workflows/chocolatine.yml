@@ -22,8 +22,7 @@ jobs:
         id: check_coding_style_report
         continue-on-error: true
         run: |
-              [ -s coding-style-reports.log ] || exit 0
-              exit 1
+              [ -s coding-style-reports.log ] && exit 1
       - name: check_errors
         if: ${{ steps.check_coding_style_report.outcome == 'failure' }}
         run: |
@@ -33,6 +32,7 @@ jobs:
                 read -a line <<< $arr
                 echo "::error file=${line[0]},line=${line[1]},title=${line[2]}::${line[3]}"
               done < "coding-style-reports.log"
+              exit 1
 
   check_program_compilation:
     needs: check_coding_style
