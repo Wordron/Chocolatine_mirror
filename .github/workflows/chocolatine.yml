@@ -57,7 +57,7 @@ jobs:
                   if [ -f $i ]; then
                     echo
                   else
-                    echo "::error title=Missing::$i"
+                    echo "::error title=Missing file::$i"
                     exit 1;
                   fi
                 done
