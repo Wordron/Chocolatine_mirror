@@ -19,6 +19,13 @@ jobs:
       - name: run_coding_style_checker
         run: check.sh $PWD $PWD
       - name: check_coding_style_report
+        id: check_coding_style_report
+        continue-on-error: true
+        run: |
+              [ -s coding-style-reports.log ] || exit 0
+              exit 1
+      - name: check_errors
+        if: ${{ steps.check_coding_style_report.result == 'failure' }}
         run: |
               while read -r arr
               do
@@ -26,6 +33,7 @@ jobs:
                 read -a line <<< $arr
                 echo "::error file=${line[0]},line=${line[1]},title=${line[2]}::${line[3]}"
               done < "coding-style-reports.log"
+              exit 1
     ## fail job if coding style errors
 
   check_program_compilation:
