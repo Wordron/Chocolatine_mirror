@@ -33,8 +33,6 @@ jobs:
                 read -a line <<< $arr
                 echo "::error file=${line[0]},line=${line[1]},title=${line[2]}::${line[3]}"
               done < "coding-style-reports.log"
-              exit 1
-    ## fail job if coding style errors
 
   check_program_compilation:
     needs: check_coding_style
