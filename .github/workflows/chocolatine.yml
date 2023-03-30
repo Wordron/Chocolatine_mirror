@@ -20,11 +20,12 @@ jobs:
         run: check.sh $PWD $PWD
       - name: check_coding_style_report
         id: check_coding_style_report
+        continue-on-error: true
         run: |
               [ -s coding-style-reports.log ] || exit 0
               exit 1
       - name: check_errors
-        if: ${{ steps.check_coding_style_report.result == 'failure' }}
+        if: ${{ steps.check_coding_style_report.outcome == 'failure' }}
         run: |
               while read -r arr
               do
